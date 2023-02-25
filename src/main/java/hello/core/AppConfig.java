@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration //환경설정 정보
 public class AppConfig {
-    @Bean //스프링 빈
+    @Bean //스프링 빈, 이름 부여도 가능(항상 이름이 달라야 함)
     public MemberService memberService(){
-        return new MemberServiceImpl(memberRepository()); //객체를 생성하는 값을 연결(주입)해주는 역할
+        return new MemberServiceImpl(memberRepository()); //객체를 생성하는 값을 연결(주입)해주는 역할, 의존관계 주입
     }
     @Bean
     public MemberRepository memberRepository(){

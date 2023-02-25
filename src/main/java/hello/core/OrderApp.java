@@ -11,11 +11,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class OrderApp {
     public static void main(String[] args) {
-        //ApplicationContext -> 스프링 컨테이너
+        //ApplicationContext(인터페이스) -> 스프링 컨테이너
         //스프링 컨테이너는 @Configuration이 붙은 설정 정보를 사용(AppConfig) -> @Bean 메소드 모두 호출
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class); // 구현체
         MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
-        // 스프링 빈 찾기
+        // 스프링 빈 찾기, 빈 객체(인스턴스)를 조회
         OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
 
         Long memberId = 1L;
