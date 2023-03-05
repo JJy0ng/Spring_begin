@@ -1,14 +1,16 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor //final이 붙은 파라미터의 생성자를 만듬
+//@RequiredArgsConstructor //final이 붙은 필드들을 모아서 생성자를 만듬
 public class OrderServiceImpl implements OrderService{
     private final MemberRepository memberRepository; //앞에 @Autowired을 붙이면 필드 주입 -> 안티 패턴(사용하지 말자), 테스트 코드에 사용
     private final DiscountPolicy discountPolicy;
@@ -35,12 +37,16 @@ public class OrderServiceImpl implements OrderService{
     */
 
     //@Autowired x -> 생성자가 1개 있으면 @Autowired 생략 가능 불변, 필수 의존 관계에서 사용
-    /*
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) { //생성자 주입 방식
+
+    //조회 빈이 2개 이상일 때 - 문제점 해결 방안
+    //discountPolicy -> rateDiscountPolicy 로 바꾸어서 필드명, 파라미터명으로 빈 이름이 매칭 가능 -> @Autowired 매칭
+    //@Qualifier 는 @Qualifier 를 찾는 용도로만 사용하는 것이 좋다
+    //@Primary 는 여러 빈이 매칭되면 우선순위를 갖는다
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) { //생성자 주입 방식
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
-     */
+
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {

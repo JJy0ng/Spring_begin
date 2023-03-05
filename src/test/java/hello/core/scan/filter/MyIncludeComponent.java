@@ -6,5 +6,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface MyIncludeComponent {
-//컴포넌트 스캔에 추외
+//컴포넌트 스캔에 추가
 }
