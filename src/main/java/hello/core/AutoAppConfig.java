@@ -25,14 +25,18 @@ import org.springframework.core.OrderComparator;
 public class AutoAppConfig { //수동 등록 빈이 우선권을 가짐, 로그가 나옴
 
     //스프링 설정을 목적으로 하는 곳에서만 필드 주입 사용 가능
+    /*
     @Autowired MemberRepository memberRepository;
     @Autowired DiscountPolicy discountPolicy;
     @Bean
     OrderService orderService(){
         return new OrderServiceImpl(memberRepository, discountPolicy);
     }
+
     @Bean(name = "memoryMemberRepository")
     MemberRepository memberRepository(){
         return new MemoryMemberRepository();
     } //빈 수동 등록
+
+     */
 }
