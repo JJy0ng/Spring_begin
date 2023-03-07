@@ -1,5 +1,7 @@
 package hello.core.lifecycle;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 public class NetworkClient {
     private String url;
@@ -26,6 +28,7 @@ public class NetworkClient {
         System.out.println("close " + url);
     }
     //의존관계주입 후 호출
+    @PostConstruct
     public void init() {
         System.out.println("NetworkClient.init");
         connect();
@@ -33,11 +36,11 @@ public class NetworkClient {
     }
 
     //빈이 종료될 때 호출
+    @PreDestroy
     public void close(){
         System.out.println("NetWorkClient.close");
         disconnect();
     }
-    //메서드 이름을 자유롭게 줄 수 있음
-    //스프링 빈이 스프링 코드에 의존X
-    //코드가 아니라 설정 정보를 사용하기에 코드를 고칠 수 없는 외부 라이브러리에도 초기화, 종료 메서더를 적용할 수 있음
+    //스프링에서 가장 권장하는 방법, 자바 표준
+    //외부 라이브러리에는 적용하지 못한다, 외부 라이브러리를 초기화, 종료해야 하면 @Bean을 이용하자
 }
