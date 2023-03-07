@@ -20,7 +20,10 @@ public class BeanLifeCycleTest {
     }
     @Configuration
     static class LifeCycleConfig{
-        @Bean
+        //destroyMethod 는 기본 값이 inferred(추론)으로 등록되어 있다
+        //종료 메서드는 따로 적어주지 않아도 잘 작동한다
+        //추론 기능을 사용하기 싫으면 "" 빈 공백을 지정하면 된다
+        @Bean(initMethod = "init", destroyMethod = "close")
         public NetworkClient networkClient(){
             NetworkClient networkClient = new NetworkClient();
             networkClient.setUrl("http://hello-spring.dev");
