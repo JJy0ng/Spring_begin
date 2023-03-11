@@ -2,6 +2,7 @@ package hello.core.common;
 
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -9,8 +10,8 @@ import javax.annotation.PreDestroy;
 import java.util.UUID;
 //로그를 출력하기 위해서 만듬
 @Component
-@Scope(value = "request") // 빈은 HTTP 요청 당 하나씩 생성, 요청이 끝나면 소멸
-public class MyLogger {
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) // 빈은 HTTP 요청 당 하나씩 생성, 요청이 끝나면 소멸
+public class MyLogger { //적용대상이 클래스인 경우는 TARGET_CLASS, 인터페이스면 INTERFACES 선택 -> 가짜 프록시 클래스를 만들어줌 -> 가짜 프록시 객체가 등록된다
     private String uuid;
     private String requestURL;
 

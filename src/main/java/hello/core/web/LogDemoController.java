@@ -14,13 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 public class LogDemoController {
 
     private final LogDemoService logDemoService;
-    private final ObjectProvider<MyLogger> myLoggerProvider;
+    private final MyLogger myLogger;
 
     @RequestMapping("log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest request){ //고객 요청 정보를 받을 수 있음
         String requestURL = request.getRequestURL().toString(); //HTTP 요청 당 각각 구분되므로 값이 섞이지 않는다
-        MyLogger myLogger = myLoggerProvider.getObject(); //ObjectProvider 덕분에 호출하는 시점까지 request scope 빈의 생성을 지연
+
+        System.out.println("myLogger = " + myLogger.getClass());
         myLogger.setRequestURL(requestURL);
 
         myLogger.log(("controller test"));
